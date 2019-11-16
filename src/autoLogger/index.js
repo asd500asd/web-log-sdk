@@ -58,7 +58,7 @@ class AutoLogger {
         scrollX,
         scrollY,
         width: rect.width,
-        height: rect.height
+        height: rect.height,
       };
 
       const logData = this.buildLogData(eventData);

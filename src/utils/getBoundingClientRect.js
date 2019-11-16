@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const getBoundingClientRect = (elm) => {
   const rect = elm.getBoundingClientRect();
   const width = rect.width || rect.right - rect.left;
