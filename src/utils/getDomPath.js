@@ -1,7 +1,22 @@
+const _getLocalNamePath = (elm) => {
+  const domPath = [];
+  let preCount = 0;
+  for (let sib = elm.previousSibling; sib; sib = sib.previousSibling) {
+    if (sib.localName == elm.localName) preCount ++;
+  }
+  if (preCount === 0) {
+    domPath.unshift(elm.localName);
+  } else {
+    domPath.unshift(`${elm.localName}:nth-of-type(${preCount + 1})`);
+  }
+  return domPath;
+}
+
 const getDomPath = (elm) => {
   try {
-    let allNodes = document.getElementsByTagName('*')
-    for (var segs = []; elm && elm.nodeType == 1; elm = elm.parentNode) {
+    const allNodes = document.getElementsByTagName('*');
+    let domPath = [];
+    for (; elm && elm.nodeType == 1; elm = elm.parentNode) {
       if (elm.hasAttribute('id')) {
         let uniqueIdCount = 0
         for (var n = 0; n < allNodes.length; n++) {
@@ -9,31 +24,16 @@ const getDomPath = (elm) => {
           if (uniqueIdCount > 1) break;
         }
         if (uniqueIdCount == 1) {
-          segs.unshift('//*[@id="' + elm.getAttribute('id') + '"]');
-          return segs.join('/');
+          domPath.unshift(`#${elm.getAttribute('id')}`);
+          return domPath.join('');
         } else {
-          return false
+          domPath.unshift(..._getLocalNamePath(elm));
         }
       } else {
-        for (var i = 1, sib = elm.previousSibling; sib; sib = sib.previousSibling) {
-          if (sib.localName == elm.localName) i++;
-        }
-        if (i == 1) {
-          if (elm.nextElementSibling) {
-            if (elm.nextElementSibling.localName != elm.localName) {
-              segs.unshift(elm.localName.toLowerCase())
-            } else {
-              segs.unshift(elm.localName.toLowerCase() + '[' + i + ']');
-            }
-          } else {
-            segs.unshift(elm.localName.toLowerCase())
-          }
-        } else {
-          segs.unshift(elm.localName.toLowerCase() + '[' + i + ']');
-        }
+        domPath.unshift(..._getLocalNamePath(elm));
       }
     }
-    return segs.length ? '/' + segs.join('/') : null
+    return domPath.length ? domPath.join('>') : null
   } catch (err) {
     console.log(err)
     return null;

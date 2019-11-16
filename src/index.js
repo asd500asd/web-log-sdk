@@ -1,5 +1,5 @@
 import AutoLogger from './autoLogger';
-import { win } from './utils/bom';
+import { win } from './common/bom';
 
 const WebLogger = {
   AutoLogger,

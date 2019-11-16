@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import axios from 'axios';
 
-import bom from '../utils/bom';
-import event from '../utils/event';
+import bom from '../common/bom';
+import event from '../common/eventUtil';
 import getDomPath from '../utils/getDomPath';
 import sliceText from '../utils/sliceText';
 import defaultOption from './option';
-import getEvent from '../utils/getEvent';
-
+import getEvent from '../common/getEvent';
+import getBoundingClientRect from '../utils/getBoundingClientRect';
 
 const {
   doc,
@@ -32,10 +32,16 @@ class AutoLogger {
 
   _autoClickHandle = (e) => {
     try {
-      const { targetElement } = getEvent(e);
+      const { targetElement, event } = getEvent(e);
       const nodeName = targetElement.nodeName && targetElement.nodeName.toLocaleLowerCase() || '';
       const text = targetElement.innerText || targetElement.value;
       const domPath = getDomPath(targetElement) || '';
+      const rect = getBoundingClientRect(targetElement);
+      const documentElement = document.documentElement || document.body.parentNode;
+      const scrollX = (documentElement && typeof documentElement.scrollLeft == 'number' ? documentElement : document.body).scrollLeft;
+      const scrollY = (documentElement && typeof documentElement.scrollTop == 'number' ? documentElement : document.body).scrollTop;
+      const pageX = event.pageX || event.clientX + scrollX;
+      const pageY = event.pageY || event.clientY + scrollY;
 
       const eventData = {
         // event type
@@ -45,6 +51,14 @@ class AutoLogger {
         text: sliceText(text),
         nodeName,
         domPath,
+        offsetX: ((pageX - rect.left - scrollX) / rect.width).toFixed(6),
+        offsetY: ((pageY - rect.top - scrollY) / rect.height).toFixed(6),
+        pageX,
+        pageY,
+        scrollX,
+        scrollY,
+        width: rect.width,
+        height: rect.height
       };
 
       const logData = this.buildLogData(eventData);

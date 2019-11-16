@@ -1,4 +1,4 @@
-import { ua } from './bom';
+import { ua } from '../common/bom';
 import platform from 'platform';
 
 const getPlatform = () => {
