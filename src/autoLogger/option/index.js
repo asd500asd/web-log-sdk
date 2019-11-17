@@ -17,4 +17,5 @@ export default {
   // 平台参数
   platform,
   optParams: {},
+  postMsgOpts: [],
 };

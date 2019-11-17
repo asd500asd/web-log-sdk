@@ -17,6 +17,7 @@ const {
 } = bom;
 
 class AutoLogger {
+
   constructor(option) {
     this.option = _.assign(this.defaultOption, option);
     this._init();
@@ -57,6 +58,8 @@ class AutoLogger {
         pageY,
         scrollX,
         scrollY,
+        left: rect.left,
+        top: rect.top,
         width: rect.width,
         height: rect.height,
       };
@@ -96,9 +99,14 @@ class AutoLogger {
   }
 
   log = (logData) => {
-    if (this.option.debug) {
+    const { debug, postMsgOpts } = this.option;
+    if (debug) {
       console.log(logData);
     }
+    postMsgOpts.forEach((opt) => {
+      const { targetWindow, targetOrigin } = opt;
+      targetWindow.postMessage({ logData: JSON.stringify(logData) }, targetOrigin)
+    });
 
     const logUrl = this.option.logUrl;
     logUrl && axios.post({

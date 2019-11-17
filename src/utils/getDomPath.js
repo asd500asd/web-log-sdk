@@ -25,7 +25,6 @@ const getDomPath = (elm) => {
         }
         if (uniqueIdCount == 1) {
           domPath.unshift(`#${elm.getAttribute('id')}`);
-          return domPath.join('');
         } else {
           domPath.unshift(..._getLocalNamePath(elm));
         }
