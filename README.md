@@ -1,5 +1,33 @@
-## Demo
-[演示](https://www.readingblog.cn/#/tutorials/circle-select) (https://www.readingblog.cn/#/tutorials/circle-select)
+## 体验
+1. [演示](https://www.readingblog.cn/#/tutorials/circle-select)
+2. demo
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>web-log-sdk</title>
+  <script src="https://www.readingblog.cn/web-log-sdk-1.0.0.min.js"></script>
+</head>
+<body>
+  <div>
+    1
+    <div id='1'>
+      2
+      <div id="1">3</div>
+      <div>4</div>
+    </div>
+  </div>
+  <div>5</div>
+  <script>
+    new WebLogger.AutoLogger({
+      debug: true,
+    });
+  </script>
+</body>
+</html>
+```
 ## 开发调试
 安装相关依赖，执行
 ```
