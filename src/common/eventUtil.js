@@ -1,7 +1,7 @@
 const event = {
   on: (target, type, handler) => {
     if (target.addEventListener) {
-      target.addEventListener(type, handler, false);
+      target.addEventListener(type, handler, true);
     } else {
       target.attachEvent(
         'on' + type,
@@ -12,7 +12,7 @@ const event = {
   },
   off: (target, type, handler) => {
     if (target.removeEventListener) {
-      target.removeEventListener(type, handler, false);
+      target.removeEventListener(type, handler, true);
     } else {
       target.detachEvent(
         'on' + type,

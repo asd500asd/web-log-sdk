@@ -1,8 +1,10 @@
 const _getLocalNamePath = (elm) => {
   const domPath = [];
   let preCount = 0;
-  for (let sib = elm.previousSibling; sib; sib = sib.previousSibling) {
-    if (sib.localName == elm.localName) preCount ++;
+  let sib = elm.previousSibling;
+  while (sib) {
+    sib.localName === elm.localName && preCount ++;
+    sib = sib.previousSibling
   }
   if (preCount === 0) {
     domPath.unshift(elm.localName);
@@ -15,16 +17,17 @@ const _getLocalNamePath = (elm) => {
 const getDomPath = (elm) => {
   try {
     const allNodes = document.getElementsByTagName('*');
-    let domPath = [];
+    const domPath = [];
     for (; elm && elm.nodeType == 1; elm = elm.parentNode) {
       if (elm.hasAttribute('id')) {
-        let uniqueIdCount = 0
-        for (var n = 0; n < allNodes.length; n++) {
-          if (allNodes[n].hasAttribute('id') && allNodes[n].id == elm.id) uniqueIdCount++;
-          if (uniqueIdCount > 1) break;
+        let idCount = 0;
+        for (let n = 0; n < allNodes.length; n++) {
+          allNodes[n].hasAttribute('id') && allNodes[n].id == elm.id && idCount++;
+          if (idCount > 1) break;
         }
-        if (uniqueIdCount == 1) {
+        if (idCount == 1) {
           domPath.unshift(`#${elm.getAttribute('id')}`);
+          break;
         } else {
           domPath.unshift(..._getLocalNamePath(elm));
         }
