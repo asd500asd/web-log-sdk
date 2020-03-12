@@ -56,7 +56,7 @@ class AutoLogger {
               self.mode = mode;
               self._autoHoverCollection();
               self._appendWLSStyle();
-              self._fetchHeatmap().then(res => {
+              self._fetchHeatmap().then((res) => {
                 self._drawHeatmap(res.data.data);
               });
             } else if (status === 'off') {
