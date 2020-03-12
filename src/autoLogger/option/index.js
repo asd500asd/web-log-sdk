@@ -8,6 +8,7 @@ export default {
   autoClick: true,
   debug: false,
   logUrl: '',
+  heatmapUrl: '',
   sdk: {
     // 类型
     type: 'js',

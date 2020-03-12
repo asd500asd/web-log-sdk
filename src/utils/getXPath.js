@@ -1,5 +1,5 @@
 const _getLocalNamePath = (elm) => {
-  const domPath = [];
+  const xpath = [];
   let preCount = 0;
   let sib = elm.previousSibling;
   while (sib) {
@@ -7,17 +7,17 @@ const _getLocalNamePath = (elm) => {
     sib = sib.previousSibling
   }
   if (preCount === 0) {
-    domPath.unshift(elm.localName);
+    xpath.unshift(elm.localName);
   } else {
-    domPath.unshift(`${elm.localName}:nth-of-type(${preCount + 1})`);
+    xpath.unshift(`${elm.localName}:nth-of-type(${preCount + 1})`);
   }
-  return domPath;
+  return xpath;
 }
 
-const getDomPath = (elm) => {
+const getXPath = (elm) => {
   try {
     const allNodes = document.getElementsByTagName('*');
-    const domPath = [];
+    const xpath = [];
     for (; elm && elm.nodeType == 1; elm = elm.parentNode) {
       if (elm.hasAttribute('id')) {
         let idCount = 0;
@@ -26,20 +26,20 @@ const getDomPath = (elm) => {
           if (idCount > 1) break;
         }
         if (idCount == 1) {
-          domPath.unshift(`#${elm.getAttribute('id')}`);
+          xpath.unshift(`#${elm.getAttribute('id')}`);
           break;
         } else {
-          domPath.unshift(..._getLocalNamePath(elm));
+          xpath.unshift(..._getLocalNamePath(elm));
         }
       } else {
-        domPath.unshift(..._getLocalNamePath(elm));
+        xpath.unshift(..._getLocalNamePath(elm));
       }
     }
-    return domPath.length ? domPath.join('>') : null
+    return xpath.length ? xpath.join('>') : null
   } catch (err) {
     console.log(err)
     return null;
   }
 }
 
-export default getDomPath;
+export default getXPath;
