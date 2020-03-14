@@ -8,7 +8,7 @@ module.exports = {
     app: './src/index.js',
   },
   output: {
-    filename: 'index.js',
+    filename: `web-log-sdk-${process.env.npm_package_version}.min.js`,
     path: path.resolve(__dirname, './lib'),
   },
   watchOptions: {
