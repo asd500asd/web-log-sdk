@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>web-log-sdk</title>
-  <script src="https://www.readingblog.cn/web-log-sdk-1.0.0.min.js"></script>
+  <script src="https://www.readingblog.cn/lib/web-log-sdk-1.1.0.min.js"></script>
 </head>
 <body>
   <div>
