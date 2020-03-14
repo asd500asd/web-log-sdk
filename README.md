@@ -1,3 +1,5 @@
+## change log
+`v1.1.0` 无埋点+圈选+热力图
 ## 体验
 1. [热力图与圈选埋点](https://www.readingblog.cn/track/index.html)
 2. demo
