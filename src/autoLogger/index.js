@@ -34,7 +34,6 @@ class AutoLogger {
   }
 
   _addMessageListener = () => {
-    const self = this;
     eventUtil.on(win, 'message', (event) => {
       if(event.data){
         try {
@@ -42,28 +41,28 @@ class AutoLogger {
           const { mode, status } = data;
           if (mode === MODE.CIRCLE_SELECT) {
             if (status === 'on') {
-              self.mode = mode;
-              self._autoHoverCollection();
-              self._appendWLSStyle();
-              self._removeHeatmapCanvas();
+              this.mode = mode;
+              this._autoHoverCollection();
+              this._appendWLSStyle();
+              this._removeHeatmapCanvas();
             } else if (status === 'off') {
-              self.mode = '';
-              self._autoHoverCollectionOff();
-              self._removeWLSStyle();
+              this.mode = '';
+              this._autoHoverCollectionOff();
+              this._removeWLSStyle();
             }
           } else if (mode === MODE.HEATMAP) {
             if (status === 'on') {
-              self.mode = mode;
-              self._autoHoverCollection();
-              self._appendWLSStyle();
-              self._fetchHeatmap().then((res) => {
-                self._drawHeatmap(res.data.data);
+              this.mode = mode;
+              this._autoHoverCollection();
+              this._appendWLSStyle();
+              this._fetchHeatmap().then((res) => {
+                this._drawHeatmap(res.data.data);
               });
             } else if (status === 'off') {
-              self.mode = '';
-              self._autoHoverCollectionOff();
-              self._removeWLSStyle();
-              self._removeHeatmapCanvas();
+              this.mode = '';
+              this._autoHoverCollectionOff();
+              this._removeWLSStyle();
+              this._removeHeatmapCanvas();
             }
           }
         } catch (e) {
@@ -83,9 +82,7 @@ class AutoLogger {
 
   _removeWLSStyle = () => {
     const wlsStyle = document.getElementById(WLS_STYLE_ID);
-    if (wlsStyle) {
-      wlsStyle.remove();
-    }
+    wlsStyle && wlsStyle.remove();
   }
 
   _removeHeatmapCanvas = () => {
@@ -202,13 +199,13 @@ class AutoLogger {
       height: rect.height,
     };
 
-    const logData = this.buildLogData(_.assign(eventData, assignData));
+    const logData = this._buildLogData(_.assign(eventData, assignData));
 
     return logData;
   }
 
-  buildLogData = (eventData) => {
-    eventData
+  _buildLogData = (eventData) => {
+    const { optParams, platform, appID, sdk } = this.option;
     return {
       eventData: {
         ...eventData,
@@ -217,10 +214,10 @@ class AutoLogger {
         cUrl: loc.href,
         t: new Date().getTime(),
       },
-      optParams: this.option.optParams,
-      platform: this.option.platform,
-      appID: this.option.appID,
-      sdk: this.option.sdk,
+      optParams,
+      platform,
+      appID,
+      sdk,
     };
   }
 
