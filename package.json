@@ -1,10 +1,9 @@
 {
   "name": "web-log-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "log sdk for web",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/.bin/webpack -w",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack-prod.config.js"
   },
@@ -14,7 +13,9 @@
   },
   "keywords": [
     "web",
-    "log sdk"
+    "log sdk",
+    "heatmap",
+    "circle select"
   ],
   "author": "mfaying",
   "license": "MIT",
