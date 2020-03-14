@@ -2,6 +2,7 @@
 `v1.1.0` 无埋点+圈选+热力图
 ## 体验
 1. [热力图与圈选埋点](https://www.readingblog.cn/track/index.html)
+![](https://mfaying.github.io/static/images/web-log-sdk/1.gif)
 2. demo
 打开控制台即可查看无埋点日志
 ```html
