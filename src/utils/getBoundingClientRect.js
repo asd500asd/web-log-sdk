@@ -1,12 +1,16 @@
 const getBoundingClientRect = (elm) => {
   const rect = elm.getBoundingClientRect();
-  const width = rect.width || rect.right - rect.left;
-  const height = rect.height || rect.bottom - rect.top;
+  const { left, top, right, bottom } = rect;
+  const width = rect.width || right - left;
+  const height = rect.height || bottom - top;
+
   return {
     width,
     height,
-    left: rect.left,
-    top: rect.top,
+    left,
+    top,
+    bottom,
+    right,
   };
 }
 

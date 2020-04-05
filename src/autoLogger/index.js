@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import axios from 'axios';
-import heatmap from 'heatmap.js';
 
 import bom from '../common/bom';
 import eventUtil from '../common/eventUtil';
@@ -11,6 +10,7 @@ import getEvent from '../common/getEvent';
 import getBoundingClientRect from '../utils/getBoundingClientRect';
 import appendStyle from '../utils/appendStyle';
 import wlsCssText from '../wls-css-text';
+import Heatmap from './utils/heatmap';
 import { WLS_CLICK_SELECT, WLS_STYLE_ID, MODE, HEATMAP_CANVAS } from './constant';
 
 const {
@@ -100,11 +100,10 @@ class AutoLogger {
   }
 
   _drawHeatmap = (data) => {
+    data = data.data;
     this._removeHeatmapCanvas();
-    const heatmapInstance = heatmap.create({
-      container: doc.body,
-    });
-    heatmapInstance.setData(data);
+    const heatmap = new Heatmap(data);
+    heatmap.draw();
   }
 
   _selectElement = (event, targetElement) => {
