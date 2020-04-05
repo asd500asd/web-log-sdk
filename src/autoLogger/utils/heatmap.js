@@ -53,7 +53,7 @@ class Heatmap {
     ctx.beginPath();
     ctx.ellipse(point.x, point.y, point.w, point.h, 0, 0, Math.PI*2);
     try {
-      const gradient = ctx.createRadialGradient(point.x, point.y, point.w, point.x, point.y, point.w * 0.8);
+      const gradient = ctx.createRadialGradient(point.x, point.y, point.w, point.x, point.y, point.w * 0.5);
       gradient.addColorStop(0, 'rgba(0,0,0,0)');
       gradient.addColorStop(1, 'rgba(0,0,0,1)');
       ctx.fillStyle = gradient;
