@@ -2,8 +2,12 @@ const getElmByXPath = (xpath) => {
   if (!xpath) {
     return null;
   }
-  const elm = document.querySelector(xpath);
-  return elm;
+  try {
+    const elm = document.querySelector(xpath);
+    return elm;
+  } catch (e) {
+    return null;
+  }
 }
 
 export default getElmByXPath;
